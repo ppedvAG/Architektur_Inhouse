@@ -65,7 +65,7 @@ namespace Calculator.Tests
         {
             var ba = new BankAccount();
             ba.Deposit(10m);
-
+          
             Assert.Throws<InvalidOperationException>(() => ba.Withdraw(12m));
         }
     }
