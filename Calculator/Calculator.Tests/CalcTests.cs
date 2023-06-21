@@ -1,3 +1,5 @@
+using Microsoft.QualityTools.Testing.Fakes;
+
 namespace Calculator.Tests
 {
     public class CalcTests
@@ -52,6 +54,30 @@ namespace Calculator.Tests
 
             //Assert
             Assert.Equal(exp, result);
+        }
+
+        [Fact]
+        public void IsWeekend()
+        {
+            var calc = new Calc();
+
+            using (ShimsContext.Create())
+            {
+                System.Fakes.ShimDateTime.NowGet = () => new DateTime(2023, 6, 19);
+                Assert.False(calc.IsWeekend());
+                System.Fakes.ShimDateTime.NowGet = () => new DateTime(2023, 6, 20);
+                Assert.False(calc.IsWeekend());
+                System.Fakes.ShimDateTime.NowGet = () => new DateTime(2023, 6, 21);
+                Assert.False(calc.IsWeekend());
+                System.Fakes.ShimDateTime.NowGet = () => new DateTime(2023, 6, 22);
+                Assert.False(calc.IsWeekend());
+                System.Fakes.ShimDateTime.NowGet = () => new DateTime(2023, 6, 23);
+                Assert.False(calc.IsWeekend());
+                System.Fakes.ShimDateTime.NowGet = () => new DateTime(2023, 6, 24);
+                Assert.True(calc.IsWeekend());
+                System.Fakes.ShimDateTime.NowGet = () => new DateTime(2023, 6, 25);
+                Assert.True(calc.IsWeekend());
+            }
         }
     }
 }

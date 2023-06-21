@@ -1,10 +1,14 @@
-﻿namespace Calculator
+﻿using System.Runtime.CompilerServices;
+
+[assembly:InternalsVisibleTo("Calculator.Tests")]
+
+namespace Calculator
 {
     public class BankAccount
     {
         public decimal Balance { get; private set; }
 
-        public void Deposit(decimal v)
+        internal void Deposit(decimal v)
         {
             if (v <= 0)
                 throw new ArgumentException();

@@ -9,3 +9,17 @@ https://fishcodelib.com/index.htm
 https://github.com/minimaxir/big-list-of-naughty-strings/blob/master/blns.txt
 
 https://learn.microsoft.com/de-de/sysinternals/downloads/procdump
+
+http://draw.io
+
+Inno Setup
+https://jrsoftware.org/ishelp.php
+
+Alternative zu MS Fakes
+https://www.typemock.com/pricing/pricing
+
+WPF App Vorlagen
+https://github.com/microsoft/TemplateStudio
+
+Hübsches UI für WPF
+https://benruehl.github.io/adonis-ui/

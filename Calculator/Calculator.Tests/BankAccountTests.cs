@@ -68,5 +68,6 @@ namespace Calculator.Tests
           
             Assert.Throws<InvalidOperationException>(() => ba.Withdraw(12m));
         }
+
     }
 }
