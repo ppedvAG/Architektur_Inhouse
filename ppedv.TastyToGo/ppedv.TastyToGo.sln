@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.33808.371
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.TastyToGo.Model", "ppedv.TastyToGo.Model\ppedv.TastyToGo.Model.csproj", "{AFAD4774-8614-4482-BF27-31D4B6F0D20A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ppedv.TastyToGo.Model", "ppedv.TastyToGo.Model\ppedv.TastyToGo.Model.csproj", "{AFAD4774-8614-4482-BF27-31D4B6F0D20A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.TastyToGo.Data.Db", "ppedv.TastyToGo.Data.Db\ppedv.TastyToGo.Data.Db.csproj", "{C8C5EA76-379F-42CD-894D-6F8BE3D4F3E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{AFAD4774-8614-4482-BF27-31D4B6F0D20A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFAD4774-8614-4482-BF27-31D4B6F0D20A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFAD4774-8614-4482-BF27-31D4B6F0D20A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8C5EA76-379F-42CD-894D-6F8BE3D4F3E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8C5EA76-379F-42CD-894D-6F8BE3D4F3E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8C5EA76-379F-42CD-894D-6F8BE3D4F3E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8C5EA76-379F-42CD-894D-6F8BE3D4F3E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
