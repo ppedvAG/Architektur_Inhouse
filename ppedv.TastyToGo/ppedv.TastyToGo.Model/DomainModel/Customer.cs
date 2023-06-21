@@ -1,4 +1,4 @@
-﻿namespace ppedv.TastyToGo.Model
+﻿namespace ppedv.TastyToGo.Model.DomainModel
 {
     public class Customer : Entity
     {

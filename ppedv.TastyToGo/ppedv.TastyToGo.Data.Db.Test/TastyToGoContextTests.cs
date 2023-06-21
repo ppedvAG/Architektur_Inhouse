@@ -3,6 +3,7 @@ using AutoFixture.Kernel;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using ppedv.TastyToGo.Model;
+using ppedv.TastyToGo.Model.DomainModel;
 using System.Reflection;
 
 namespace ppedv.TastyToGo.Data.Db.Tests

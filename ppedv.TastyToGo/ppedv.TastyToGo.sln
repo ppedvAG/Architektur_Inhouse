@@ -5,9 +5,13 @@ VisualStudioVersion = 17.7.33808.371
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ppedv.TastyToGo.Model", "ppedv.TastyToGo.Model\ppedv.TastyToGo.Model.csproj", "{AFAD4774-8614-4482-BF27-31D4B6F0D20A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.TastyToGo.Data.Db", "ppedv.TastyToGo.Data.Db\ppedv.TastyToGo.Data.Db.csproj", "{C8C5EA76-379F-42CD-894D-6F8BE3D4F3E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ppedv.TastyToGo.Data.Db", "ppedv.TastyToGo.Data.Db\ppedv.TastyToGo.Data.Db.csproj", "{C8C5EA76-379F-42CD-894D-6F8BE3D4F3E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.TastyToGo.Data.Db.Tests", "ppedv.TastyToGo.Data.Db.Test\ppedv.TastyToGo.Data.Db.Tests.csproj", "{402B2995-AA93-4162-B099-C57B7D7FF53D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ppedv.TastyToGo.Data.Db.Tests", "ppedv.TastyToGo.Data.Db.Test\ppedv.TastyToGo.Data.Db.Tests.csproj", "{402B2995-AA93-4162-B099-C57B7D7FF53D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.TastyToGo.Core", "ppedv.TastyToGo.Core\ppedv.TastyToGo.Core.csproj", "{F7D3712D-166F-4C22-B366-29E86568E8A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.TastyToGo.UI.DevConsole", "ppedv.TastyToGo.UI.DevConsole\ppedv.TastyToGo.UI.DevConsole.csproj", "{5ECD99CC-323F-43B2-AFD5-E2F718E51597}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{402B2995-AA93-4162-B099-C57B7D7FF53D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{402B2995-AA93-4162-B099-C57B7D7FF53D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{402B2995-AA93-4162-B099-C57B7D7FF53D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7D3712D-166F-4C22-B366-29E86568E8A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7D3712D-166F-4C22-B366-29E86568E8A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7D3712D-166F-4C22-B366-29E86568E8A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7D3712D-166F-4C22-B366-29E86568E8A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ECD99CC-323F-43B2-AFD5-E2F718E51597}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ECD99CC-323F-43B2-AFD5-E2F718E51597}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ECD99CC-323F-43B2-AFD5-E2F718E51597}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ECD99CC-323F-43B2-AFD5-E2F718E51597}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

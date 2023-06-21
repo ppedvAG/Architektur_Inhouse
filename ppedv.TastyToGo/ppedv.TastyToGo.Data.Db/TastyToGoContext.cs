@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ppedv.TastyToGo.Model;
+using ppedv.TastyToGo.Model.DomainModel;
 
 namespace ppedv.TastyToGo.Data.Db
 {
