@@ -1,5 +1,9 @@
+using AutoFixture;
+using AutoFixture.Kernel;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using ppedv.TastyToGo.Model;
+using System.Reflection;
 
 namespace ppedv.TastyToGo.Data.Db.Tests
 {
@@ -101,5 +105,50 @@ namespace ppedv.TastyToGo.Data.Db.Tests
             }
         }
 
+
+        [Fact]
+        public void Can_insert_Order_with_AutoFixture()
+        {
+            var fix = new Fixture();
+            fix.Behaviors.Add(new OmitOnRecursionBehavior());
+            fix.Customizations.Add(new PropertyNameOmitter("Id"));
+            var order = fix.Build<Order>().Create();
+
+            using (var con = new TastyToGoContext(conString))
+            {
+                con.Database.EnsureCreated();
+                con.Add(order);
+                con.SaveChanges();
+            }
+
+            using (var con = new TastyToGoContext(conString))
+            {
+                //var loaded = con.Orders.Find(order.Id);
+                var loaded = con.Orders.Include(x => x.Customer)
+                                       .Include(x => x.OrderItems)
+                                       .ThenInclude(x => x.Product)
+                                       .FirstOrDefault(x => x.Id == order.Id);
+                loaded.Should().BeEquivalentTo(order, x => x.IgnoringCyclicReferences());
+            }
+        }
+
+        internal class PropertyNameOmitter : ISpecimenBuilder
+        {
+            private readonly IEnumerable<string> names;
+
+            internal PropertyNameOmitter(params string[] names)
+            {
+                this.names = names;
+            }
+
+            public object Create(object request, ISpecimenContext context)
+            {
+                var propInfo = request as PropertyInfo;
+                if (propInfo != null && names.Contains(propInfo.Name))
+                    return new OmitSpecimen();
+
+                return new NoSpecimen();
+            }
+        }
     }
 }
