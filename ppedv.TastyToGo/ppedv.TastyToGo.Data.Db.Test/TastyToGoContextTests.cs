@@ -1,5 +1,5 @@
+using FluentAssertions;
 using ppedv.TastyToGo.Model;
-using System.Linq.Expressions;
 
 namespace ppedv.TastyToGo.Data.Db.Tests
 {
@@ -15,7 +15,7 @@ namespace ppedv.TastyToGo.Data.Db.Tests
 
             var result = con.Database.EnsureCreated();
 
-            Assert.True(result);
+            result.Should().BeTrue();
 
             //cleanup con.Database.EnsureDeleted();
         }
@@ -30,7 +30,7 @@ namespace ppedv.TastyToGo.Data.Db.Tests
             con.Add(prod);
             var result = con.SaveChanges();
 
-            Assert.Equal(1, result);
+            result.Should().Be(1);
         }
 
         [Fact]
@@ -47,7 +47,7 @@ namespace ppedv.TastyToGo.Data.Db.Tests
             using (var con = new TastyToGoContext(conString))
             {
                 var loaded = con.Products.Find(prod.Id);
-                Assert.Equal(prod.Name, loaded.Name);
+                loaded.Name.Should().Be(prod.Name);
             }
         }
 
@@ -67,14 +67,13 @@ namespace ppedv.TastyToGo.Data.Db.Tests
             {
                 var loaded = con.Products.Find(prod.Id);
                 loaded.Name = newName;
-                var rowCount = con.SaveChanges();
-                Assert.Equal(1, rowCount);
+                con.SaveChanges().Should().Be(1);
             }
 
             using (var con = new TastyToGoContext(conString))
             {
                 var loaded = con.Products.Find(prod.Id);
-                Assert.Equal(newName, loaded.Name);
+                loaded.Name.Should().Be(newName);
             }
         }
 
@@ -92,14 +91,13 @@ namespace ppedv.TastyToGo.Data.Db.Tests
             using (var con = new TastyToGoContext(conString))
             {
                 con.Products.Remove(prod);
-                var rowCount = con.SaveChanges();
-                Assert.Equal(1, rowCount);
+                con.SaveChanges().Should().Be(1);
             }
 
             using (var con = new TastyToGoContext(conString))
             {
                 var loaded = con.Products.Find(prod.Id);
-                Assert.Null(loaded);
+                loaded.Should().BeNull();
             }
         }
 
