@@ -20,24 +20,25 @@ namespace ppedv.TastyToGo.Core
 
         public Customer GetBestPayingCustomer()
         {
-            decimal maxTotalAmount = decimal.MinValue;
-            Customer bestPayingCustomer = null;
+            //decimal maxTotalAmount = decimal.MinValue;
+            //Customer bestPayingCustomer = null;
 
-            foreach (var customer in repo.GetAll<Customer>())
-            {
-                decimal totalAmount = customer.Orders.Sum(order => order.OrderItems.Sum(item => item.Amount * item.Product.Price));
+            //foreach (var customer in repo.GetAll<Customer>())
+            //{
+            //    decimal totalAmount = customer.Orders.Sum(order => order.OrderItems.Sum(item => item.Amount * item.Price));
 
-                if (totalAmount > maxTotalAmount)
-                {
-                    maxTotalAmount = totalAmount;
-                    bestPayingCustomer = customer;
-                }
-            }
+            //    if (totalAmount > maxTotalAmount)
+            //    {
+            //        maxTotalAmount = totalAmount;
+            //        bestPayingCustomer = customer;
+            //    }
+            //}
 
-            return bestPayingCustomer;
+            //return bestPayingCustomer;
+            //repo.SaveAll();
 
-
-            //_repository.GetAll<Customer>().OrderBy(c => c.Orders.Sum(o => o.OrderItems.Sum(oi => oi.Amount * oi.Price))).FirstOrDefault();
+            return repo.GetAll<Customer>().OrderByDescending(c => c.Orders.Sum(o => o.OrderItems.Sum(oi => oi.Amount * oi.Price)))
+                                          .ThenByDescending(x=>x.Orders.OrderByDescending(y=>y.OrderDate).FirstOrDefault().OrderDate).FirstOrDefault();
         }
 
 

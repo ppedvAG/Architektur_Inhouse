@@ -6,7 +6,6 @@ Console.WriteLine("Hello, World!");
 string conString = "Server=(localdb)\\MSSQLLOCALDB;Database=TastyToGo_tests;Trusted_Connection=true;";
 
 var repo = new ppedv.TastyToGo.Data.Db.EfRepositoryAdapter(conString);
-
 var orderService = new OrderService(repo);
 
 var bestCustomer = orderService.GetBestPayingCustomer();

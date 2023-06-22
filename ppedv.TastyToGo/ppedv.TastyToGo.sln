@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ppedv.TastyToGo.Data.Db", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ppedv.TastyToGo.Data.Db.Tests", "ppedv.TastyToGo.Data.Db.Test\ppedv.TastyToGo.Data.Db.Tests.csproj", "{402B2995-AA93-4162-B099-C57B7D7FF53D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.TastyToGo.Core", "ppedv.TastyToGo.Core\ppedv.TastyToGo.Core.csproj", "{F7D3712D-166F-4C22-B366-29E86568E8A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ppedv.TastyToGo.Core", "ppedv.TastyToGo.Core\ppedv.TastyToGo.Core.csproj", "{F7D3712D-166F-4C22-B366-29E86568E8A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.TastyToGo.UI.DevConsole", "ppedv.TastyToGo.UI.DevConsole\ppedv.TastyToGo.UI.DevConsole.csproj", "{5ECD99CC-323F-43B2-AFD5-E2F718E51597}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ppedv.TastyToGo.UI.DevConsole", "ppedv.TastyToGo.UI.DevConsole\ppedv.TastyToGo.UI.DevConsole.csproj", "{5ECD99CC-323F-43B2-AFD5-E2F718E51597}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.TastyToGo.Core.Tests", "ppedv.TastyToGo.Core.Tests\ppedv.TastyToGo.Core.Tests.csproj", "{45907DAC-8CAE-4383-BF00-82FE0F53CD33}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{5ECD99CC-323F-43B2-AFD5-E2F718E51597}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5ECD99CC-323F-43B2-AFD5-E2F718E51597}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5ECD99CC-323F-43B2-AFD5-E2F718E51597}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45907DAC-8CAE-4383-BF00-82FE0F53CD33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45907DAC-8CAE-4383-BF00-82FE0F53CD33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45907DAC-8CAE-4383-BF00-82FE0F53CD33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45907DAC-8CAE-4383-BF00-82FE0F53CD33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
