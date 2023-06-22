@@ -6,11 +6,69 @@ namespace ppedv.TastyToGo.Core.Tests
 {
     public class OrderServiceTests
     {
+
+        [Fact]
+        public void CalcOrderSum_WithDiscount_ReturnsCorrectSum()
+        {
+            // Arrange
+            var customer = new Customer();
+            var order = new Order() { Customer = customer };
+            var p = new Product() { Name = "P" };
+
+            var orderItems = new List<OrderItem>
+            {
+                new OrderItem { Amount = 2, Price = 10,Order=order,Product= p },
+                new OrderItem { Amount = 3, Price = 5,Order=order,Product=p }
+            };
+            order.OrderItems = orderItems;
+
+            var mockCustomerService = new Mock<ICustomerService>();
+            mockCustomerService.Setup(x => x.DoesCustomerGetRabatt(customer)).Returns(true);
+
+            var orderService = new OrderService(null, mockCustomerService.Object);
+
+            // Act
+            decimal result = orderService.CalcOrderSum(order);
+
+            // Assert
+            decimal expectedSum = (2 * 10 + 3 * 5) - 10;
+            Assert.Equal(expectedSum, result);
+        }
+
+        [Fact]
+        public void CalcOrderSum_WithoutDiscount_ReturnsCorrectSum()
+        {
+            // Arrange
+            // Arrange
+            var customer = new Customer();
+            var order = new Order() { Customer = customer };
+            var p = new Product() { Name = "P" };
+
+            var orderItems = new List<OrderItem>
+            {
+                new OrderItem { Amount = 2, Price = 10,Order=order,Product= p },
+                new OrderItem { Amount = 3, Price = 5,Order=order,Product=p }
+            };
+            order.OrderItems = orderItems;
+
+            var mockCustomerService = new Mock<ICustomerService>();
+            mockCustomerService.Setup(x => x.DoesCustomerGetRabatt(customer)).Returns(false);
+
+            var orderService = new OrderService(null, mockCustomerService.Object);
+
+            // Act
+            decimal result = orderService.CalcOrderSum(order);
+
+            // Assert
+            decimal expectedSum = 2 * 10 + 3 * 5;
+            Assert.Equal(expectedSum, result);
+        }
+
         [Fact]
         public void GetBestPayingCustomer_0_customers_returns_null()
         {
             var mock = new Mock<IRepository>();
-            var orderService = new OrderService(mock.Object);
+            var orderService = new OrderService(mock.Object, null);
 
             var result = orderService.GetBestPayingCustomer();
 
@@ -38,7 +96,7 @@ namespace ppedv.TastyToGo.Core.Tests
 
                 return new[] { c1, c2 }.AsQueryable();
             });
-            var orderService = new OrderService(mock.Object);
+            var orderService = new OrderService(mock.Object, null);
 
             var result = orderService.GetBestPayingCustomer();
 
@@ -49,7 +107,7 @@ namespace ppedv.TastyToGo.Core.Tests
         public void GetBestPayingCustomer_3_customers_number_2_is_best_moq()
         {
             var mock = new Mock<IRepository>();
-            mock.Setup(x => x.Query <Customer>()).Returns(() =>
+            mock.Setup(x => x.Query<Customer>()).Returns(() =>
             {
                 var p = new Product() { Name = "P1" };
                 var c1 = new Customer() { Name = "C1" };
@@ -70,7 +128,7 @@ namespace ppedv.TastyToGo.Core.Tests
 
                 return new[] { c1, c2, c3 }.AsQueryable();
             });
-            var orderService = new OrderService(mock.Object);
+            var orderService = new OrderService(mock.Object, null);
 
             var result = orderService.GetBestPayingCustomer();
 
@@ -81,7 +139,7 @@ namespace ppedv.TastyToGo.Core.Tests
         [Fact]
         public void GetBestPayingCustomer_3_customers_number_2_is_best()
         {
-            var orderService = new OrderService(new TestRepo());
+            var orderService = new OrderService(new TestRepo(), null);
 
             var result = orderService.GetBestPayingCustomer();
 

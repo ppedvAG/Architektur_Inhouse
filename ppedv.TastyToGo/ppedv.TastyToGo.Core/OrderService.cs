@@ -3,18 +3,25 @@ using ppedv.TastyToGo.Model.DomainModel;
 
 namespace ppedv.TastyToGo.Core
 {
-    public class OrderService
+    public class OrderService : IOrderService
     {
         private readonly IRepository repo;
+        private readonly ICustomerService customerService;
 
-        public OrderService(IRepository repo)
+        public OrderService(IRepository repo, ICustomerService customerService)
         {
             this.repo = repo;
+            this.customerService = customerService;
         }
 
         public decimal CalcOrderSum(Order order)
         {
-            throw new NotImplementedException();
+            if (customerService.DoesCustomerGetRabatt(order.Customer))
+            {
+                return order.OrderItems.Sum(x => x.Amount * x.Price) - 10;
+            }
+
+            return order.OrderItems.Sum(x => x.Amount * x.Price);
         }
 
 
