@@ -22,11 +22,14 @@ var path = @"C:\Users\ar2\source\repos\ppedvAG\Architektur_Inhouse\ppedv.TastyTo
 var builder = new ContainerBuilder();
 builder.RegisterType<EfRepositoryAdapter>().AsImplementedInterfaces()
                                            .WithParameter("conString", conString);
+builder.RegisterType<OrderService>().AsImplementedInterfaces();
+builder.RegisterType<CustomerService>().AsImplementedInterfaces();
+
 var container = builder.Build();
 
 var repo = container.Resolve<IRepository>();
 
-var orderService = new OrderService(repo);
+var orderService = new OrderService(repo,container.Resolve<ICustomerService>());
 
 var bestCustomer = orderService.GetBestPayingCustomer();
 Console.WriteLine($"Best Customer: {bestCustomer.Name}");

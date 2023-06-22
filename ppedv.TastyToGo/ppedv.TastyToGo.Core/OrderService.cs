@@ -46,7 +46,6 @@ namespace ppedv.TastyToGo.Core
 
             //return repo.Query<Customer>().OrderByDescending(c => c.Orders.Sum(o => o.OrderItems.Sum(oi => oi.Amount * oi.Price)))
             //                             .ThenByDescending(x=>x.Orders.Select(x=>x.OrderDate).Max()).FirstOrDefault();
-
             return repo.Query<Customer>()
            .OrderByDescending(c => c.Orders.SelectMany(x => x.OrderItems).Sum(oi => oi.Amount * oi.Price))
            .ThenByDescending(c => c.Orders.Max(o => o.OrderDate))

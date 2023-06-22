@@ -11,6 +11,8 @@ namespace ppedv.TastyToGo.Core
         public CustomerService(IRepository repo)
         {
             this.repo = repo;
+            throw new NotImplementedException();
+
         }
 
         public bool DoesCustomerGetRabatt(Customer customer)
@@ -18,4 +20,5 @@ namespace ppedv.TastyToGo.Core
             return customer.Name.StartsWith("A");
         }
     }
+
 }
