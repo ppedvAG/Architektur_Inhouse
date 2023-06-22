@@ -6,12 +6,11 @@ namespace ppedv.TastyToGo.Core
 {
     public class CustomerService : ICustomerService
     {
-        private IRepository repo;
+        private IUnitOfWork uow;
 
-        public CustomerService(IRepository repo)
+        public CustomerService(IUnitOfWork uow)
         {
-            this.repo = repo;
-            throw new NotImplementedException();
+            this.uow = uow;
 
         }
 

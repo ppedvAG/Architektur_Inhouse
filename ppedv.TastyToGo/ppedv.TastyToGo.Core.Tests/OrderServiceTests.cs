@@ -67,21 +67,25 @@ namespace ppedv.TastyToGo.Core.Tests
         [Fact]
         public void GetBestPayingCustomer_0_customers_returns_null()
         {
-            var mock = new Mock<IRepository>();
-            var orderService = new OrderService(mock.Object, null);
+            var repoMock = new Mock<IRepository<Customer>>();
+            var uowMock = new Mock<IUnitOfWork>();
+            uowMock.Setup(x => x.CustomerRepo).Returns(repoMock.Object);
+            var orderService = new OrderService(uowMock.Object, null);
 
             var result = orderService.GetBestPayingCustomer();
 
             Assert.Null(result);
-            mock.Verify(x => x.Query<Customer>(), Times.Once());
-            mock.Verify(x => x.SaveAll(), Times.Never());
+            repoMock.Verify(x => x.Query(), Times.Once());
+            uowMock.Verify(x => x.SaveAll(), Times.Never());
         }
 
         [Fact]
         public void GetBestPayingCustomer_2_customers_with_same_order_sum_return_the_customer_with_last_orderDate()
         {
-            var mock = new Mock<IRepository>();
-            mock.Setup(x => x.Query<Customer>()).Returns(() =>
+            var repoMock = new Mock<IRepository<Customer>>();
+            var uowMock = new Mock<IUnitOfWork>();
+            uowMock.Setup(x => x.CustomerRepo).Returns(repoMock.Object);
+            repoMock.Setup(x => x.Query()).Returns(() =>
             {
                 var p = new Product() { Name = "P1" };
                 var c1 = new Customer() { Name = "C1" };
@@ -96,7 +100,7 @@ namespace ppedv.TastyToGo.Core.Tests
 
                 return new[] { c1, c2 }.AsQueryable();
             });
-            var orderService = new OrderService(mock.Object, null);
+            var orderService = new OrderService(uowMock.Object, null);
 
             var result = orderService.GetBestPayingCustomer();
 
@@ -106,8 +110,10 @@ namespace ppedv.TastyToGo.Core.Tests
         [Fact]
         public void GetBestPayingCustomer_3_customers_number_2_is_best_moq()
         {
-            var mock = new Mock<IRepository>();
-            mock.Setup(x => x.Query<Customer>()).Returns(() =>
+            var repoMock = new Mock<IRepository<Customer>>();
+            var uowMock = new Mock<IUnitOfWork>();
+            uowMock.Setup(x => x.CustomerRepo).Returns(repoMock.Object);
+            repoMock.Setup(x => x.Query()).Returns(() =>
             {
                 var p = new Product() { Name = "P1" };
                 var c1 = new Customer() { Name = "C1" };
@@ -128,7 +134,7 @@ namespace ppedv.TastyToGo.Core.Tests
 
                 return new[] { c1, c2, c3 }.AsQueryable();
             });
-            var orderService = new OrderService(mock.Object, null);
+            var orderService = new OrderService(uowMock.Object, null);
 
             var result = orderService.GetBestPayingCustomer();
 
@@ -136,69 +142,69 @@ namespace ppedv.TastyToGo.Core.Tests
         }
 
 
-        [Fact]
-        public void GetBestPayingCustomer_3_customers_number_2_is_best()
-        {
-            var orderService = new OrderService(new TestRepo(), null);
+        //[Fact]
+        //public void GetBestPayingCustomer_3_customers_number_2_is_best()
+        //{
+        //    var orderService = new OrderService(new TestRepo(), null);
 
-            var result = orderService.GetBestPayingCustomer();
+        //    var result = orderService.GetBestPayingCustomer();
 
-            Assert.Equal("C2", result.Name);
-        }
+        //    Assert.Equal("C2", result.Name);
+        //}
 
-        class TestRepo : IRepository
-        {
-            public void Add<T>(T entity) where T : Entity
-            {
-                throw new NotImplementedException();
-            }
+        //class TestRepo : IRepository
+        //{
+        //    public void Add<T>(T entity) where T : Entity
+        //    {
+        //        throw new NotImplementedException();
+        //    }
 
-            public void Delete<T>(T entity) where T : Entity
-            {
-                throw new NotImplementedException();
-            }
+        //    public void Delete<T>(T entity) where T : Entity
+        //    {
+        //        throw new NotImplementedException();
+        //    }
 
-            public IQueryable<T> Query<T>() where T : Entity
-            {
-                if (typeof(T).IsAssignableFrom(typeof(Customer)))
-                {
-                    var p = new Product() { Name = "P1" };
-                    var c1 = new Customer() { Name = "C1" };
-                    var c1o1 = new Order() { Customer = c1 };
-                    c1.Orders.Add(c1o1);
-                    c1o1.OrderItems.Add(new OrderItem() { Amount = 1, Price = 7m, Product = p, Order = c1o1 });
+        //    public IQueryable<T> Query<T>() where T : Entity
+        //    {
+        //        if (typeof(T).IsAssignableFrom(typeof(Customer)))
+        //        {
+        //            var p = new Product() { Name = "P1" };
+        //            var c1 = new Customer() { Name = "C1" };
+        //            var c1o1 = new Order() { Customer = c1 };
+        //            c1.Orders.Add(c1o1);
+        //            c1o1.OrderItems.Add(new OrderItem() { Amount = 1, Price = 7m, Product = p, Order = c1o1 });
 
-                    var c2 = new Customer() { Name = "C2" };
-                    var c2o1 = new Order() { Customer = c2 };
-                    c2.Orders.Add(c2o1);
-                    c2o1.OrderItems.Add(new OrderItem() { Amount = 1, Price = 6m, Product = p, Order = c2o1 });
-                    c2o1.OrderItems.Add(new OrderItem() { Amount = 1, Price = 16m, Product = p, Order = c2o1 });
+        //            var c2 = new Customer() { Name = "C2" };
+        //            var c2o1 = new Order() { Customer = c2 };
+        //            c2.Orders.Add(c2o1);
+        //            c2o1.OrderItems.Add(new OrderItem() { Amount = 1, Price = 6m, Product = p, Order = c2o1 });
+        //            c2o1.OrderItems.Add(new OrderItem() { Amount = 1, Price = 16m, Product = p, Order = c2o1 });
 
-                    var c3 = new Customer() { Name = "C3" };
-                    var c3o1 = new Order() { Customer = c3 };
-                    c2.Orders.Add(c3o1);
-                    c3o1.OrderItems.Add(new OrderItem() { Amount = 2, Price = 7m, Product = p, Order = c3o1 });
+        //            var c3 = new Customer() { Name = "C3" };
+        //            var c3o1 = new Order() { Customer = c3 };
+        //            c2.Orders.Add(c3o1);
+        //            c3o1.OrderItems.Add(new OrderItem() { Amount = 2, Price = 7m, Product = p, Order = c3o1 });
 
-                    return new[] { c1, c2, c3 }.Cast<T>().AsQueryable();
-                }
+        //            return new[] { c1, c2, c3 }.Cast<T>().AsQueryable();
+        //        }
 
-                throw new NotImplementedException();
-            }
+        //        throw new NotImplementedException();
+        //    }
 
-            public T? GetById<T>(int id) where T : Entity
-            {
-                throw new NotImplementedException();
-            }
+        //    public T? GetById<T>(int id) where T : Entity
+        //    {
+        //        throw new NotImplementedException();
+        //    }
 
-            public void SaveAll()
-            {
-                throw new NotImplementedException();
-            }
+        //    public void SaveAll()
+        //    {
+        //        throw new NotImplementedException();
+        //    }
 
-            public void Update<T>(T entity) where T : Entity
-            {
-                throw new NotImplementedException();
-            }
-        }
+        //    public void Update<T>(T entity) where T : Entity
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
     }
 }

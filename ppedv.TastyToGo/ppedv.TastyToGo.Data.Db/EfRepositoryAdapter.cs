@@ -3,41 +3,37 @@ using ppedv.TastyToGo.Model.DomainModel;
 
 namespace ppedv.TastyToGo.Data.Db
 {
-    public class EfRepositoryAdapter : IRepository
-    {
-        private TastyToGoContext context;
 
-        public EfRepositoryAdapter(string conString)
+    public class EfRepositoryAdapter<T> : IRepository<T> where T : Entity
+    {
+        protected TastyToGoContext context;
+
+        public EfRepositoryAdapter(TastyToGoContext context)
         {
-            context = new TastyToGoContext(conString);
+            this.context = context;
         }
 
-        public void Add<T>(T entity) where T : Entity
+        public void Add(T entity)
         {
             context.Add(entity);
         }
 
-        public void Delete<T>(T entity) where T : Entity
+        public void Delete(T entity)
         {
             context.Remove(entity);
         }
 
-        public IQueryable<T> Query<T>() where T : Entity
+        public IQueryable<T> Query()
         {
             return context.Set<T>();
         }
 
-        public T? GetById<T>(int id) where T : Entity
+        public T? GetById(int id)
         {
             return context.Set<T>().Find(id);
         }
 
-        public void SaveAll()
-        {
-            context.SaveChanges();
-        }
-
-        public void Update<T>(T entity) where T : Entity
+        public void Update(T entity)
         {
             context.Update(entity);
         }

@@ -5,12 +5,12 @@ namespace ppedv.TastyToGo.Core
 {
     public class OrderService : IOrderService
     {
-        private readonly IRepository repo;
+        private readonly IUnitOfWork uow;
         private readonly ICustomerService customerService;
 
-        public OrderService(IRepository repo, ICustomerService customerService)
+        public OrderService(IUnitOfWork uow, ICustomerService customerService)
         {
-            this.repo = repo;
+            this.uow = uow;
             this.customerService = customerService;
         }
 
@@ -46,7 +46,7 @@ namespace ppedv.TastyToGo.Core
 
             //return repo.Query<Customer>().OrderByDescending(c => c.Orders.Sum(o => o.OrderItems.Sum(oi => oi.Amount * oi.Price)))
             //                             .ThenByDescending(x=>x.Orders.Select(x=>x.OrderDate).Max()).FirstOrDefault();
-            return repo.Query<Customer>()
+            return uow.CustomerRepo.Query()
            .OrderByDescending(c => c.Orders.SelectMany(x => x.OrderItems).Sum(oi => oi.Amount * oi.Price))
            .ThenByDescending(c => c.Orders.Max(o => o.OrderDate))
            .FirstOrDefault();

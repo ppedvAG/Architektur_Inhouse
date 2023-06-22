@@ -20,21 +20,21 @@ var path = @"C:\Users\ar2\source\repos\ppedvAG\Architektur_Inhouse\ppedv.TastyTo
 
 //di per AutoFac
 var builder = new ContainerBuilder();
-builder.RegisterType<EfRepositoryAdapter>().AsImplementedInterfaces()
+builder.RegisterType<EfUnitOfWorkAdapter>().AsImplementedInterfaces()
                                            .WithParameter("conString", conString);
 builder.RegisterType<OrderService>().AsImplementedInterfaces();
 builder.RegisterType<CustomerService>().AsImplementedInterfaces();
 
 var container = builder.Build();
 
-var repo = container.Resolve<IRepository>();
+var uow = container.Resolve<IUnitOfWork>();
 
-var orderService = new OrderService(repo,container.Resolve<ICustomerService>());
+var orderService = new OrderService(uow,container.Resolve<ICustomerService>());
 
 var bestCustomer = orderService.GetBestPayingCustomer();
 Console.WriteLine($"Best Customer: {bestCustomer.Name}");
 
-foreach (var custo in repo.Query<Customer>().Where(x => x.Name.StartsWith("N")).OrderBy(x => x.Name))
+foreach (var custo in uow.CustomerRepo.Query().Where(x => x.Name.StartsWith("N")).OrderBy(x => x.Name))
 {
     Console.WriteLine($"{custo.Name}");
 }

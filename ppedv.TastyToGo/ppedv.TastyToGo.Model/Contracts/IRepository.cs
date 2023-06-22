@@ -2,15 +2,15 @@
 
 namespace ppedv.TastyToGo.Model.Contracts
 {
-    public interface IRepository
+
+    public interface IRepository<T> where T : Entity
     {
-        T? GetById<T>(int id) where T : Entity;
-        IQueryable<T> Query<T>() where T : Entity;
+        T? GetById(int id);
+        IQueryable<T> Query();
 
-        void Add<T>(T entity) where T : Entity;
-        void Delete<T>(T entity) where T : Entity;
-        void Update<T>(T entity) where T : Entity;
+        void Add(T entity);
+        void Delete(T entity);
+        void Update(T entity);
 
-        void SaveAll();
     }
 }
