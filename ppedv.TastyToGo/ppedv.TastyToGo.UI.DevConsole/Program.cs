@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using FluentAssertions;
 using ppedv.TastyToGo.Core;
 using ppedv.TastyToGo.Data.Db;
 using ppedv.TastyToGo.Model.Contracts;
@@ -23,14 +24,14 @@ builder.RegisterType<EfRepositoryAdapter>().AsImplementedInterfaces()
                                            .WithParameter("conString", conString);
 var container = builder.Build();
 
-var repo = container.Resolve<IRepository>();   
-        
+var repo = container.Resolve<IRepository>();
+
 var orderService = new OrderService(repo);
 
 var bestCustomer = orderService.GetBestPayingCustomer();
 Console.WriteLine($"Best Customer: {bestCustomer.Name}");
 
-foreach (var custo in repo.GetAll<Customer>())
+foreach (var custo in repo.Query<Customer>().Where(x => x.Name.StartsWith("N")).OrderBy(x => x.Name))
 {
     Console.WriteLine($"{custo.Name}");
 }

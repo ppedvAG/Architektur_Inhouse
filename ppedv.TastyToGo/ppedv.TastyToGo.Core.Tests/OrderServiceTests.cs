@@ -15,7 +15,7 @@ namespace ppedv.TastyToGo.Core.Tests
             var result = orderService.GetBestPayingCustomer();
 
             Assert.Null(result);
-            mock.Verify(x => x.GetAll<Customer>(), Times.Once());
+            mock.Verify(x => x.Query<Customer>(), Times.Once());
             mock.Verify(x => x.SaveAll(), Times.Never());
         }
 
@@ -23,7 +23,7 @@ namespace ppedv.TastyToGo.Core.Tests
         public void GetBestPayingCustomer_2_customers_with_same_order_sum_return_the_customer_with_last_orderDate()
         {
             var mock = new Mock<IRepository>();
-            mock.Setup(x => x.GetAll<Customer>()).Returns(() =>
+            mock.Setup(x => x.Query<Customer>()).Returns(() =>
             {
                 var p = new Product() { Name = "P1" };
                 var c1 = new Customer() { Name = "C1" };
@@ -36,7 +36,7 @@ namespace ppedv.TastyToGo.Core.Tests
                 c2.Orders.Add(c2o1);
                 c2o1.OrderItems.Add(new OrderItem() { Amount = 1, Price = 7m, Product = p, Order = c2o1 });
 
-                return new[] { c1, c2 };
+                return new[] { c1, c2 }.AsQueryable();
             });
             var orderService = new OrderService(mock.Object);
 
@@ -49,7 +49,7 @@ namespace ppedv.TastyToGo.Core.Tests
         public void GetBestPayingCustomer_3_customers_number_2_is_best_moq()
         {
             var mock = new Mock<IRepository>();
-            mock.Setup(x => x.GetAll<Customer>()).Returns(() =>
+            mock.Setup(x => x.Query <Customer>()).Returns(() =>
             {
                 var p = new Product() { Name = "P1" };
                 var c1 = new Customer() { Name = "C1" };
@@ -68,7 +68,7 @@ namespace ppedv.TastyToGo.Core.Tests
                 c2.Orders.Add(c3o1);
                 c3o1.OrderItems.Add(new OrderItem() { Amount = 2, Price = 7m, Product = p, Order = c3o1 });
 
-                return new[] { c1, c2, c3 };
+                return new[] { c1, c2, c3 }.AsQueryable();
             });
             var orderService = new OrderService(mock.Object);
 
@@ -100,7 +100,7 @@ namespace ppedv.TastyToGo.Core.Tests
                 throw new NotImplementedException();
             }
 
-            public IEnumerable<T> GetAll<T>() where T : Entity
+            public IQueryable<T> Query<T>() where T : Entity
             {
                 if (typeof(T).IsAssignableFrom(typeof(Customer)))
                 {
@@ -121,7 +121,7 @@ namespace ppedv.TastyToGo.Core.Tests
                     c2.Orders.Add(c3o1);
                     c3o1.OrderItems.Add(new OrderItem() { Amount = 2, Price = 7m, Product = p, Order = c3o1 });
 
-                    return new[] { c1, c2, c3 }.Cast<T>();
+                    return new[] { c1, c2, c3 }.Cast<T>().AsQueryable();
                 }
 
                 throw new NotImplementedException();

@@ -23,3 +23,11 @@ https://github.com/microsoft/TemplateStudio
 
 Hübsches UI für WPF
 https://benruehl.github.io/adonis-ui/
+
+
+https://prismlibrary.com/docs/modules.html
+
+https://docs.fluentvalidation.net/en/latest/
+
+
+https://roadmap.sh/
