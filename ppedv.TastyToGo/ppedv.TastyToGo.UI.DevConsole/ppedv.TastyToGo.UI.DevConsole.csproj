@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="7.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ppedv.TastyToGo.Core\ppedv.TastyToGo.Core.csproj" />
     <ProjectReference Include="..\ppedv.TastyToGo.Data.Db\ppedv.TastyToGo.Data.Db.csproj" />
     <ProjectReference Include="..\ppedv.TastyToGo.Model\ppedv.TastyToGo.Model.csproj" />
